@@ -3,7 +3,7 @@
 let light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/navigation-day-v1/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    accessToken: apiKey
+    accessToken: API_KEY
 });
 let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -27,16 +27,10 @@ let map = L.map('mapid', {
 L.control.layers(baseMaps).addTo(map);
 
 //////////// access GeoJSON via URL - Toronto airlines routes data on GitHub //////////////
-let torontoData = "https://raw.githubusercontent.com/m-miley/Mapping_Earthquakes/main/torontoRoutes.json";
-// Grabbing GeoJSON data 
+let torontoData = "https://raw.githubusercontent.com/Neekoh1310/Mapping_Earthquakes1/main/torontoRoutes.json";
+// Grabbing our GeoJSON data.
 d3.json(torontoData).then(function(data) {
     console.log(data);
-    //Create GeoJSON layer with the retrieved data
-    L.geoJSON(data, {
-        color: "yellow",
-        weight: 2.5,
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup("<h2>" + feature.properties.airline + feature.properties.airline_id + "</h2><hr><h3>" + feature.properties.src + " to " + feature.properties.dst + "</h3>");
-        }        
-    }).addTo(map);
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJSON(data).addTo(map);
 });
